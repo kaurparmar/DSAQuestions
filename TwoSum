@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        
+        unordered_map<int,vector<int>> mpp;
+        for(int i=0; i<nums.size(); i++){
+            mpp[nums[i]].push_back(i);
+        }
+        sort(nums.begin(),nums.end());
+        int i=0;
+        int j=nums.size()-1;
+        vector<int> ans(2);
+        while(i<j && j<nums.size()){
+            if(nums[i]+nums[j]==target){
+                if(nums[i]==nums[j]){
+                    ans[0]=mpp[nums[i]][0];
+                    ans[1]=mpp[nums[j]][1];
+                }
+                else{
+                    ans[0]=mpp[nums[i]][0];
+                    ans[1]=mpp[nums[j]][0];
+                }
+                
+                return ans;
+            }
+            else if(nums[i]+nums[j]<target){
+                i++;
+            }
+            else{
+                j--;
+            }
+        }
+        return {-1,-1};
+        
+    }
+};
+int main(){
+    Solution sol;
+    vector<int> nums = {2, 7, 11, 15};
+    int target = 9;
+    vector<int> result = sol.twoSum(nums, target);
+    for(int i : result){
+        cout << i << " ";
+    }
+    return 0;
+}
